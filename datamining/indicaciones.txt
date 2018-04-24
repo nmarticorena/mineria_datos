@@ -1,0 +1,6 @@
+Reporte *breve* (no más de 4 pags.) presentados en una página Web. Debe ser enviado en un archivo comprimido con todo lo necesario.
+Debe contenter:
+1) Introducción.
+2) Descripción de los datos y exploración inicial.
+3) Temática o problemática central y describir cómo se abordará inicialmente.
+4) Se evaluará positivamente el incluir código fuente utilizado para generar sus estadísticas y análisis (e.g. por ej. generar la página usando jupyter notebook o poner enlaces a sus scripts o J notebooks).

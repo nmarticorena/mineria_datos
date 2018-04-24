@@ -1,0 +1,11 @@
+Package: toolkitEntel
+Type: Package
+Title: Big Data & Analytics Toolkit - Entel
+Version: 0.1.1
+Author: Rodolfo Núñez <rodo.nunez.u@gmail.com> - Daniel Fischer - Augusto Sandoval - Loretto Gatica - Álvaro Ovando - Martin Vicencio
+Maintainer: Rodolfo Núñez <rodo.nunez.u@gmail.com>
+Description: Toolkit with many mixed useful functions for Entel projects that could be useful for many other applications. 
+License: MIT
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1

@@ -1,0 +1,11 @@
+Variable,Descripcion
+eventid,"Numérica, identifica cada ataque en la base de datos"
+iyear,"Entera, año en el que ocurre el ataque"
+country_txt,"Categórica, país donde ocurre el ataque"
+region_txt,"Categórica, continente donde ocurre el ataque"
+latitude,"Numérica, latitud espacial"
+longitude,"Numérica, longitu espacial"
+crit1,"Categórica binaria (0 o 1), 1 si el ataque está dirigido a lograr un poder político, económico, religioso o social. No se cumple si el perpetuador actúa por puro afán de lucro o motivos personales."
+targtype1_txt,"Categórica, esta variable captura de manera general el tipo de objetivo/victima de los ataques, tiene 22 niveles por lo que se ha optado por trabajar con lo 5 mas populares y agrupar el resto en un nivle llamado ""otros"""
+nkill,"Entera, numero de victimas fatales producto del ataque."
+nwound,"Entera, numero de victimas heridas producto del ataque."

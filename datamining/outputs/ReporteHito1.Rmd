@@ -1,0 +1,284 @@
+---
+title: "Terrorismo en Sur América y el resto del mundo."
+author: "Nicolás Marticorena, Pablo Troncoso y Martín Vicencio"
+date: "April 9, 2018"
+output:
+  html_document:
+    df_paged: paged
+    theme: cerulean
+subtittle: Hito 1
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+opts_chunk$set(echo = T)
+opts_chunk$set(warning = F)
+opts_chunk$set(message = F)
+opts_chunk$set(fig.align = "center")
+
+source("../R/Script.R")
+
+```
+
+# Introducción
+
+El objetivo del proyecto, enmarcado en el curso de Introducción a la Mineria de Datos CC5206, es la investigación, aprendizaje y aplicación de técnicas utiles en la minería de datos en torno a una temática escogida por el grupo, en este caso, sobre el análisis de ataques terroristas en Sudamérica y su comparación con otras regiones del mundo.
+
+Dentro de esta primera parte del proyecto a llamarse hito 1, se realizó una breve descripción de la temática a tratar, el porque resulta de interés desarrollarse en este tema y lo que se podrá lograr al final del proyecto. Junto a esto se plantean las primeras hipotesis del proyecto y la línea en la cual se quiere trabajar, para lograr obtener conclusiones útiles y completas.
+
+Para aquello se comienzá explorando los datos que se utilizarán como materia prima para el proyecto, determinando características relevantes en la línea de los objetivos planteados y bajo esto, se obtenieron las primeras muestras y recursos para relacionar con las primeras hipotesis de trabajo, todo esto como un análisis muy por encima para en posteriores hitos del proyecto, realizar un trabajo más exhaustivo e interesante que se nos permita como grupo.
+
+
+# Motivación 
+
+En últimos años el terrorismo en el mundo a sufrido un alza, por lo menos en la visualización y su foco en grandes ciudades, es un hecho que no se puede desconocer. Su alto impacto en las sociedades y como va transformando la forma de vida de los civiles en las ciudades objetivos o la provocación de miedo en las ciudades son los efectos más notorios del terrorismo.
+
+```{r,include=TRUE,eval=F}
+plot1=ggplot(data = aggregate(data = gtdContinentes,V1~region_txt,FUN = sum),aes(x=reorder(region_txt,V1),y=V1))+
+  geom_bar(stat = "identity",fill=c(rep("grey",times=9),"orange","grey","grey"))+
+  coord_flip()+
+  xlab("")+ylab("")+
+  ggtitle("Cantidad total de atentados")+
+  th
+```
+
+```{r, include=TRUE,echo=FALSE}
+print(plot1)
+```
+
+
+Junto a un mayor registro de este aumento de actividad y que gracias a la globalización en el mundo, el conocimiento e interés que se genera en paises lejanos como el nuestro, hace surgir preguntas como: Porqué se genera este aumento?, Es tan real este aumento o solo es más visible hoy en día?, ?Son más graves estos ataques, en cuanto a victimas fatales o foco de objetivos? pero las más relevantes, e inspiración principal para desarrollar esta temática en el proyecto, son: Cualés son las diferencias entre nuestra región y las más afectadas ultimamente? Es el terrorismo que se ha sufrido en sudamérica "diferente" al de otras regiones? y ?cuáles son los principales factores que desencadenan estos fenomenos?. Con este análisis comparativo de la región se busca tanto analizar el terrorismo en Sudamérica y en Chile pero a la vez dar pinceladas sobre la actualidad del terrorismo y los últimos ataques ocurridos en los principales paises europeos, buscando que los datos nos "hablen" de lo que pasa en este tema. 
+
+Luego de la un breve exploración de los datos, en la cual se presento la cantidad de atentados terroristas de los continentes en funcion del tiempo, se pudó observar que en el caso de latinoamerica esta fue bastante alta en los años 1980-2000 pero luego es notoriamente mas baja que en otros continentes. Por lo cual surje la pregunta, Que tan distintos son y fueron los ataques terrorirstas efectuados en latino america en comparación al resto del mundo.
+
+```{r,include=TRUE,eval=F}
+plot2=ggplot(gtdContinentes,aes(x= iyear, y= V1,colour=region_txt)) +
+  geom_path(lineend = "round",linejoin = "mitre")+
+  scale_color_discrete(name="Continente: ")+
+  ylab("Cantidad de atentados")+
+  xlab("")+xlim(1970,2017)+
+  th
+
+```
+
+```{r, include=TRUE,echo=FALSE}
+print(plot2)
+```
+
+
+```{r,include=TRUE,eval=F}
+plot3=ggplot(gtdContinentes[gtdContinentes$region_txt=="South America",],aes(x= iyear, y= V1,colour=region_txt)) +
+  geom_path(lineend = "round",linejoin = "mitre")+
+  scale_color_discrete(name="Continente: ")+
+  ylab("Cantidad de atentados")+
+  xlab("")+xlim(1970,2017)+
+  th+theme(legend.position = "top")
+```
+
+
+```{r, include=TRUE,echo=FALSE}
+print(plot3)
+```
+
+# Tematica central a trabajar
+
+Bajo lo descrito anteriormente en la motivación y las principales preguntas que surgen con respecto al terrorismo, la problematica central a trabajar inicialmente es analizar como se comporta el terrorismo en la región en que vivimos y realizar una comparativa con otras grandes urbes del mundo, analizando datos históricos de más 170.000 ataques alrededor del mundo desde 1970.
+
+Se abordará esta temática con técnicas de minería de datos adquirdas en el curso, filtrando y rescatando los principales aspectos de interés, y que den sentido a las preguntas y foco del tema a trabajar, como las cantidades de ataques sufridos en las regiones, la cantidad de heridos y fallecidos de aquellos ataques, su distribución en los paices de las regiones,tipos de grupos que realizarón estos ataques , entre otros. La mayoria de estos procedimientos se verán obtenidos bajo útiles librerías como ggplot2, plotly, plyr, etc. Ademas del uso de una toolbox de desarrollo personal de uno de los integrantes del proyecto.
+
+```{rinclude=TRUE,eval=F}
+plot10=ggplot(gtdTotal,aes(x= iyear, y= V1)) +
+  geom_path(lineend = "round",linejoin = "mitre")+
+  scale_color_discrete(name="Continente: ")+
+  ylab("Cantidad de atentados")+
+  xlab("")+xlim(1970,2017)+
+  th
+
+```
+
+```{r, include=TRUE,echo=FALSE}
+print(plot10)
+```
+
+
+# Descripción de los datos y Exploración inicial
+
+Para esta etapa del trabajo se descargó el archivo "gtd.csv" del sitio <a href="http://www.start.umd.edu/gtd/">Global Terrorism Database</a> la cual tiene mas de 170.000 registros de ataques terroristas, descritos en 135 variables. De las cuales se utilizaron las siguientes variables para una primera exploracion: 
+
+```{r,echo=FALSE}
+ var=read.csv("../data/variables.csv")
+ kable(x = var)
+```
+
+En primer lugar se separaron los paises de sudamerica, para de esa manera poder caracterizar cuales son los paises en los cuales hubieron mas ataques terroristas entre 1970 y 2017. En el cual se puede observar que paises como Chile, Colombia y Perú son aquellos en los cuales hubó más cantidad de atentados. Además de ser Colombia el unico en el cual en la actualidad existen una alta cantidad de ataques por año.
+
+```{r,include=TRUE,eval=F}
+plot4=ggplot( ddply(gtdSA,.(country_txt,iyear),nrow) ,aes(x= iyear, y= V1,colour=country_txt)) +
+  geom_path(lineend = "round",linejoin = "mitre")+
+  scale_color_discrete(name="País: ")+
+  ylab("Cantidad de atentados")+
+  xlab("")+xlim(1970,2017)+
+  th+
+  geom_vline(xintercept = 1975,col = "brown2",lwd = 0.5)+
+  geom_vline(xintercept = 2000,col = "brown2",lwd = 0.5)
+
+```
+
+```{r, include=TRUE,echo=FALSE}
+print(plot4)
+```
+
+Junto con está separación se procedió a evaluar los lugares fisicos en los cuales se realizaron ataques que resultaran con personas fallecidas, en el cual se puede notar que en paises como Chile, Argentina , Brazil, Paraguay y Ecuador Los ataques se centran más bien en las capitales o ciudades importantes. En contra parte con Perú y Colombia en los cuales los ataques son efectuados en zonas selvaticas y en un amplio espectro de lugares.  
+
+```{r,include=TRUE,eval=F}
+plot5=ggmap(américa)+
+  geom_point(data = gtdSA,mapping = aes(y=latitude,x=longitude,size=nkill),color="red",alpha=0.1)+
+  ylim(c(-50,15))+xlim(c(-90,-30))+th+scale_size(name = "Muertes")
+
+```
+
+```{r, include=TRUE,echo=FALSE}
+print(plot5)
+```
+
+Otra carateristica estudiada son los tipos de objetivos que se tenian en los ataques efectuados a lo largo de este periodo de tiempo, en el cual se puede observar que una gran parte de los objetivos fueron contra negocios y contra el gobierno.
+
+```{r,include=TRUE,eval=F}
+plot6=ggplot(ddply(gtdSA2,.(targtype1_txt),nrow),aes(x="",y=V1,fill=targtype1_txt))+
+  geom_bar(width = 1 , stat = "identity")+
+  scale_fill_discrete(name="Tipo de objetivo")+
+  geom_text(aes(y=rep(sum(V1),times=length(V1))-V1/2-lagpad(cumsum(V1),1),label = percent(V1/sum(V1))))+
+  blank_theme+ggtitle("Ataques en Sur América 1975-2000")
+  theme(axis.text.x=element_blank())
+```
+
+```{r, include=TRUE,echo=FALSE}
+print(plot6)
+```
+
+
+Ahora más bien realizando una comparación entre nuestro continente y el mundo, uno puede notar que la cantidad de muertos a lo largo de la historia, es notoramiente menor a los efectuados en los paises africanos, pero al mismo tiempo bastante superior en comparacion a europa y norte america.
+
+
+```{r,include=TRUE,eval=F}
+plot7=ggplot(aggregate(nkill ~ region_txt,gtd,FUN = sum),aes(x=reorder(region_txt,nkill),y=nkill))+
+  geom_bar(stat = "identity")+
+  coord_flip()+
+  xlab("")+ylab("")+
+  ggtitle("Muertos")+
+  th
+```
+
+```{r, include=TRUE,echo=FALSE}
+print(plot7)
+```
+
+
+
+La última exploracion realizada es una comparación de letalidiad y masividad de conflictos, entre continentes.
+De lo cual se puede desprender que los paises del este de Asia, Norte America y Africa se caracterizan por tener ataques masivos. Pero solamente los paises del Africa al sur del Sahara se caracteriza por ser donde estos conflictos son mas letales.
+
+En el caso de Latino america este posee una baja masividad, y posee una letalidad mas bien promedio.
+
+```{r,include=TRUE,eval=F}
+plot8=ggplot(gtdLetalidadContinentes,aes(x=reorder(region_txt,order),y=value,fill=variable))+
+  geom_bar(stat = "identity",position = position_jitterdodge())+
+  coord_flip()+xlab("")+
+  th
+```
+
+```{r, include=TRUE,echo=FALSE}
+print(plot8)
+```
+
+```{r,include=TRUE,eval=F}
+plot9=ggplot(gtd,aes(x=region_txt,y=nkill))+
+  geom_boxplot()+
+  coord_flip()+
+  xlab("")+ylab("Muertos")+scale_y_log10()+
+  ggtitle("Distribución de muertes por ataques")+th
+```
+
+```{r, include=TRUE,echo=FALSE}
+print(plot9)
+```
+
+# Desafío y propuesta 
+
+Como desafío de este proyecto se tiene el encontrar que factores determinan como se manifiestan los ataques terroristas en un contexto geo-politico, economico, conflictos sociales, etc. Por lo cual se agregaran nuevas variables a los datos ya analizados, tales como PIB, Población, Tasas de migración, etc.
+
+
+Todo esto en funcion de determinar las principales caracteristicas de como se realizan estos ataques y como estas mismos van cambiando en funcion del lugar fisico y del contexto en los cuales fueron realizados. Para luego al final del proyecto generar herramientas de prevención de conflictos al ya tenerlos bien clasificados.
+
+
+
+#Referencias 
+
+<a href="http://www.start.umd.edu/gtd/">Global Terrorism Database</a>
+
+Documentación sobre datos.
+<a href="http://www.start.umd.edu/gtd/downloads/Codebook.pdf"> Codebook.pdf </a>
+
+#Codigo Anexo
+##init.R
+```{r,include=TRUE,eval=F}
+library(toolkitEntel)
+safeLibrary(scales)
+safeLibrary(plyr)
+safeLibrary(ggmap)
+safeLibrary(ggplot2)
+safeLibrary(reshape2)
+safeLibrary(bit64)
+th=theme_light(base_family = "calibri")
+blank_theme <- theme_minimal(base_family = "calibri")+
+  theme(
+    axis.title.x = element_blank(),
+    axis.title.y = element_blank(),
+    panel.border = element_blank(),
+    panel.grid=element_blank(),
+    axis.ticks = element_blank(),
+    plot.title=element_text(size=14)
+  )
+```
+
+##Pre-procesamiento de los datos
+```{r,include=TRUE,eval=F}
+source("init.R")
+
+# Pre process -------------------------------------------------------------
+
+files="gtd.csv"
+featuresFile = "features.tab"
+
+updateFeatures(dataset.file = files,
+               features.file = featuresFile,
+               ds.sep = ",",
+               f.sep = "\t"
+)
+
+
+
+
+
+gtd=readDataset(files=files,features.list = getFeatures(features.file = featuresFile, sep = "\t"),sep=",")
+gtd=forceClass(gtd)
+
+gtdSA=gtd[gtd[,"region_txt"] == "South America",]
+gtdSA2=gtdSA[gtdSA$iyear %in% 1975:2000,]
+gtdSA2=limitFactors(gtdSA2,newlevel = "Otros")
+
+gtdContinentes=ddply(gtd,.(region_txt,iyear),nrow)
+
+américa=get_map("Montevideo",zoom = 3 )
+
+
+gtdLetalidadContinentes=merge(aggregate(nkill ~ region_txt,gtd,FUN = sum),aggregate(nwound ~ region_txt,gtd,FUN = sum),by="region_txt")
+gtdLetalidadContinentes=merge(gtdLetalidadContinentes,aggregate(V1~region_txt,gtdContinentes,FUN=sum),by="region_txt")
+gtdLetalidadContinentes=transform( gtdLetalidadContinentes, Letalidad=nkill/V1, Masividad=(nkill+nwound)/V1)
+gtdLetalidadContinentes=gtdLetalidadContinentes[,c("region_txt","Letalidad","Masividad")]
+order=c(gtdLetalidadContinentes$Letalidad,rep(0,times=12))
+gtdLetalidadContinentes=melt(gtdLetalidadContinentes, id.vars = "region_txt")
+gtdLetalidadContinentes[,"order"]=order
+rm(order)
+```
+
