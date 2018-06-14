@@ -1,9 +1,9 @@
-source("../R/init.R")
+source("R/init.R")
 
 # Pre process -------------------------------------------------------------
 
-files="../data/gtd.csv"
-featuresFile = "../data/features.tab"
+files="data/gtd.csv"
+featuresFile = "data/features.tab"
 
 updateFeatures(dataset.file = files,
                features.file = featuresFile,
@@ -21,7 +21,13 @@ gtdSA2=limitFactors(gtdSA2,newlevel = "Otros")
 gtdContinentes=ddply(gtd,.(region_txt,iyear),nrow)
 gtdTotal=ddply(gtd,.(iyear),nrow)
 
+gtdGrupos=ddply(gtd,.(gname),nrow)
+
 america=get_map("Montevideo",zoom = 3 )
+
+gtdEfectividadContinentes=ddply(gtd,.(region_txt,success),nrow)
+
+
 
 gtdLetalidadContinentes=merge(aggregate(nkill ~ region_txt,gtd,FUN = sum),aggregate(nwound ~ region_txt,gtd,FUN = sum),by="region_txt")
 gtdLetalidadContinentes=merge(gtdLetalidadContinentes,aggregate(V1~region_txt,gtdContinentes,FUN=sum),by="region_txt")
@@ -108,3 +114,14 @@ plot9=ggplot(gtd,aes(x=region_txt,y=nkill))+
 
 
 
+plot10=ggplot(gtdEfectividadContinentes,aes(x=reorder(region_txt,success),y=V1,fill=success))+
+  geom_bar(stat = "identity",position = position_jitterdodge())+
+  coord_flip()+xlab("")+
+  th
+print(plot10)
+
+plot11=ggplot(gtdEfectividadSA,aes(x=reorder(country_txt,success),y=V1,fill=success))+
+  geom_bar(stat = "identity",position = position_jitterdodge())+
+  coord_flip()+xlab("")+
+  th
+print(plot11)
